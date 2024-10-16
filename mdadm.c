@@ -19,7 +19,7 @@ int opHelper(int DiskID, int BlockID, int Command, int Reserved) {
 
 
 int mdadm_mount(void) {
-   int opValue = opHelper(0, 0, 0, 0);
+        int opValue = opHelper(0, 0, 0, 0);
 
         if (mountStatus == 1) {
                 return -1;
@@ -36,7 +36,7 @@ int mdadm_mount(void) {
 }
 
 int mdadm_unmount(void) {
-  int opValue = opHelper(0,0,1,0);
+        int opValue = opHelper(0,0,1,0);
 
         if (mountStatus == 0) {
                 return -1;
@@ -53,7 +53,7 @@ int mdadm_unmount(void) {
 }
 
 int mdadm_read(uint32_t start_addr, uint32_t read_len, uint8_t *read_buf)  {
-    int lengthOfRead = read_len;
+        int lengthOfRead = read_len;
 
         if (start_addr + read_len > 1048576) {
                 return -1;
@@ -73,7 +73,6 @@ int mdadm_read(uint32_t start_addr, uint32_t read_len, uint8_t *read_buf)  {
 
         int DiskID = start_addr/65536;
         int BlockID = (start_addr % 65536)/256;
-
 
         //first case
         uint32_t JBOD_STD = JBOD_SEEK_TO_DISK<<12;
@@ -96,13 +95,11 @@ int mdadm_read(uint32_t start_addr, uint32_t read_len, uint8_t *read_buf)  {
         jbod_operation(op, tempBuf);
         memcpy(read_buf, tempBuf+offset, read_len);
 
-
         BlockID += 1;
         if (BlockID == 256) {
                 DiskID += 1;
                 BlockID = 0;
         }
-
 
         //second case
         lengthOfRead = read_len-(256-offset);
@@ -155,5 +152,6 @@ int mdadm_read(uint32_t start_addr, uint32_t read_len, uint8_t *read_buf)  {
                 jbod_operation(op, tempBuf);
                 memcpy(read_buf+bytesRead, tempBuf, lengthOfRead);
         }
+        
         return read_len;
 }
