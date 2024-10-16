@@ -104,7 +104,7 @@ int mdadm_read(uint32_t start_addr, uint32_t read_len, uint8_t *read_buf)  {
         }
 
 
-         //second case
+        //second case
         lengthOfRead = read_len-(256-offset);
         int bytesRead = 256-offset;
         while (lengthOfRead > 256) {
@@ -136,7 +136,7 @@ int mdadm_read(uint32_t start_addr, uint32_t read_len, uint8_t *read_buf)  {
                 }
         }
 
-          //third case
+        //third case
         if (lengthOfRead > 0) {
                 uint32_t JBOD_STD = JBOD_SEEK_TO_DISK<<12;
                 JBOD_STD |= DiskID<<0;
